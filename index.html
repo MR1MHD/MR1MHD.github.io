@@ -1,1 +1,420 @@
-<h1> hello </h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamad MHD — Portfolio</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+  :root {
+    --blue: #2c5f8a;
+    --light-blue: #e8f0f7;
+    --dark: #1a1a2e;
+    --text: #333;
+    --gray: #666;
+    --border: #d0dce8;
+  }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: var(--text);
+    background: #fff;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(255,255,255,0.95);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(6px);
+  }
+  .nav-name { font-weight: 700; color: var(--blue); font-size: 16px; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--gray); font-size: 13px; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--blue); }
+
+  /* SECTIONS GENERAL */
+  section { padding: 80px 40px; max-width: 960px; margin: 0 auto; }
+  .section-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--blue);
+    margin-bottom: 30px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding-top: 100px; max-width: 960px; margin: 0 auto;
+  }
+  .hero-content { max-width: 620px; }
+  .hero-greeting { font-size: 14px; color: var(--blue); font-weight: 600; margin-bottom: 12px; letter-spacing: 1px; }
+  .hero-name { font-size: 48px; font-weight: 700; color: var(--dark); line-height: 1.1; margin-bottom: 10px; }
+  .hero-title { font-size: 20px; color: var(--gray); margin-bottom: 20px; }
+  .hero-desc { font-size: 15px; color: var(--gray); line-height: 1.7; margin-bottom: 32px; max-width: 500px; }
+  .btn {
+    display: inline-block; padding: 12px 28px;
+    background: var(--blue); color: #fff;
+    text-decoration: none; border-radius: 4px;
+    font-size: 13px; font-weight: 600;
+    margin-right: 12px; transition: background 0.2s;
+  }
+  .btn:hover { background: #1e4a6e; }
+  .btn-outline {
+    background: transparent; color: var(--blue);
+    border: 2px solid var(--blue);
+  }
+  .btn-outline:hover { background: var(--light-blue); }
+
+  /* ABOUT */
+  #about { background: var(--light-blue); max-width: 100%; padding: 80px 40px; }
+  #about .inner { max-width: 960px; margin: 0 auto; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .about-text p { font-size: 14px; line-height: 1.8; color: var(--gray); margin-bottom: 14px; }
+  .about-info { display: flex; flex-direction: column; gap: 10px; }
+  .info-row { display: flex; gap: 10px; font-size: 13px; }
+  .info-label { font-weight: 600; color: var(--blue); min-width: 100px; }
+  .info-value { color: var(--gray); }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .skill-card {
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 18px; transition: box-shadow 0.2s;
+  }
+  .skill-card:hover { box-shadow: 0 4px 16px rgba(44,95,138,0.1); }
+  .skill-card-title { font-size: 12px; font-weight: 700; color: var(--blue); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    background: var(--light-blue); color: var(--blue);
+    font-size: 11px; padding: 3px 8px; border-radius: 3px; font-weight: 500;
+  }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .project-card {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 24px; transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .project-card:hover { box-shadow: 0 6px 24px rgba(44,95,138,0.12); transform: translateY(-2px); }
+  .project-card-title { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+  .project-tech-list { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+  .project-tech-tag {
+    background: var(--blue); color: #fff;
+    font-size: 10px; padding: 2px 7px; border-radius: 2px; font-weight: 600;
+  }
+  .project-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
+
+  /* EDUCATION */
+  .edu-card {
+    border-left: 3px solid var(--blue);
+    padding: 18px 24px; margin-bottom: 16px;
+    background: var(--light-blue); border-radius: 0 6px 6px 0;
+  }
+  .edu-degree { font-size: 15px; font-weight: 700; color: var(--dark); }
+  .edu-school { font-size: 13px; color: var(--blue); margin-top: 3px; font-weight: 600; }
+  .edu-date { font-size: 12px; color: var(--gray); margin-top: 3px; }
+  .edu-courses { font-size: 12px; color: var(--gray); margin-top: 10px; line-height: 1.7; }
+  .edu-courses strong { color: var(--text); }
+
+  /* CONTACT */
+  #contact { background: var(--dark); max-width: 100%; padding: 80px 40px; }
+  #contact .inner { max-width: 960px; margin: 0 auto; }
+  #contact .section-title { color: #7ab3d4; }
+  #contact .section-title::after { background: #2c4a6a; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .contact-text p { font-size: 14px; color: #aaa; line-height: 1.8; }
+  .contact-links { display: flex; flex-direction: column; gap: 14px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none; color: #ccc; font-size: 13px;
+    padding: 12px 16px; border: 1px solid #2c4a6a;
+    border-radius: 6px; transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: #7ab3d4; color: #7ab3d4; }
+  .contact-icon { font-size: 18px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark); text-align: center;
+    padding: 20px; font-size: 12px; color: #555;
+    border-top: 1px solid #1e3a52;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .about-grid, .skills-grid, .projects-grid, .contact-grid { grid-template-columns: 1fr; }
+    .hero-name { font-size: 32px; }
+    nav { padding: 12px 20px; }
+    .nav-links { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-name">[Your Name]</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div style="max-width:100%;">
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-greeting">👋 Hi there, I'm</div>
+    <div class="hero-name">[Your Full Name]</div>
+    <div class="hero-title">Software Engineering Technology Graduate</div>
+    <div class="hero-desc">
+      A passionate IT & software engineering graduate from Conestoga College, 
+      with hands-on experience in systems programming, networking, databases, 
+      and computer security. I love building things that work and solving problems that matter.
+    </div>
+    <a href="#projects" class="btn">View My Projects</a>
+    <a href="#contact" class="btn btn-outline">Get In Touch</a>
+  </div>
+</section>
+</div>
+
+<!-- ABOUT -->
+<div id="about">
+<div class="inner">
+  <div class="section-title">About Me</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm a recent Software Engineering Technology graduate from Conestoga College in Waterloo, Ontario. 
+        Throughout my studies I built a strong foundation across the full stack — from low-level 
+        assembly and embedded systems, all the way up to web applications and cloud deployment.
+      </p>
+      <p>
+        I'm especially interested in IT infrastructure, cybersecurity, and networked systems. 
+        I enjoy understanding how things work under the hood and applying that knowledge to 
+        build reliable, secure software.
+      </p>
+    </div>
+    <div class="about-info">
+      <div class="info-row">
+        <span class="info-label">Name</span>
+        <span class="info-value">[Your Full Name]</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Location</span>
+        <span class="info-value">Waterloo, ON, Canada</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Education</span>
+        <span class="info-value">Conestoga College — Software Engineering Technology</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Email</span>
+        <span class="info-value">[your.email@email.com]</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">LinkedIn</span>
+        <span class="info-value">[linkedin.com/in/yourprofile]</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">GitHub</span>
+        <span class="info-value">github.com/MR1MHD</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Status</span>
+        <span class="info-value" style="color:#2c5f8a; font-weight:600;">Open to opportunities ✅</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-title">Technical Skills</div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-card-title">Languages</div>
+      <div class="skill-tags">
+        <span class="tag">C</span><span class="tag">C++</span><span class="tag">C#</span>
+        <span class="tag">Java</span><span class="tag">Python</span><span class="tag">SQL</span>
+        <span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">Assembly</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Operating Systems</div>
+      <div class="skill-tags">
+        <span class="tag">Linux</span><span class="tag">Windows</span>
+        <span class="tag">Shell Scripting</span><span class="tag">PowerShell</span>
+        <span class="tag">Virtual Machines</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Networking & Security</div>
+      <div class="skill-tags">
+        <span class="tag">TCP/IP</span><span class="tag">LAN</span>
+        <span class="tag">SSL/TLS</span><span class="tag">Penetration Testing</span>
+        <span class="tag">Firewalls</span><span class="tag">Sockets</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Web & Cloud</div>
+      <div class="skill-tags">
+        <span class="tag">HTML</span><span class="tag">CSS</span>
+        <span class="tag">REST</span><span class="tag">ASP.NET</span>
+        <span class="tag">Azure</span><span class="tag">jQuery</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Databases</div>
+      <div class="skill-tags">
+        <span class="tag">SQL</span><span class="tag">Relational DB</span>
+        <span class="tag">ERD</span><span class="tag">Normalization</span>
+        <span class="tag">NoSQL</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-title">Tools & Concepts</div>
+      <div class="skill-tags">
+        <span class="tag">Git</span><span class="tag">GitHub</span>
+        <span class="tag">Agile</span><span class="tag">OOP</span>
+        <span class="tag">Data Structures</span><span class="tag">IoT</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<div style="background: var(--light-blue); max-width:100%; padding: 80px 0;">
+<section id="projects" style="padding-top:0; padding-bottom:0;">
+  <div class="section-title">Projects</div>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-card-title">Linux System Programming Suite</div>
+      <div class="project-tech-list">
+        <span class="project-tech-tag">C</span>
+        <span class="project-tech-tag">Linux</span>
+        <span class="project-tech-tag">POSIX Threads</span>
+        <span class="project-tech-tag">Sockets</span>
+        <span class="project-tech-tag">Shell Scripting</span>
+      </div>
+      <div class="project-desc">Built multi-process and multi-threaded applications in Linux using IPC mechanisms including message queues, shared memory, semaphores, and TCP/IP sockets. Implemented shell scripts for task automation.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-title">Relational Database Application</div>
+      <div class="project-tech-list">
+        <span class="project-tech-tag">SQL</span>
+        <span class="project-tech-tag">C</span>
+        <span class="project-tech-tag">ERD</span>
+        <span class="project-tech-tag">Normalization</span>
+      </div>
+      <div class="project-desc">Designed a normalized relational database (3NF) from requirements, built the schema using DDL, and developed a C program for full CRUD operations via programmatic database access.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-title">Full-Stack Network Application</div>
+      <div class="project-tech-list">
+        <span class="project-tech-tag">Java</span>
+        <span class="project-tech-tag">REST</span>
+        <span class="project-tech-tag">PHP</span>
+        <span class="project-tech-tag">SQL</span>
+        <span class="project-tech-tag">Azure</span>
+      </div>
+      <div class="project-desc">Designed and deployed an internet-accessible full-stack application using n-tier architecture, REST web services, and secure client-server communication. Hosted on Microsoft Azure.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-title">Penetration Testing Lab</div>
+      <div class="project-tech-list">
+        <span class="project-tech-tag">Kali Linux</span>
+        <span class="project-tech-tag">Ethical Hacking</span>
+        <span class="project-tech-tag">Countermeasures</span>
+        <span class="project-tech-tag">Digital Forensics</span>
+      </div>
+      <div class="project-desc">Recreated attack scenarios in an isolated lab, identified application vulnerabilities, and implemented effective countermeasures. Developed a secure application and subjected it to full penetration testing.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-title">Windows Desktop Application</div>
+      <div class="project-tech-list">
+        <span class="project-tech-tag">C#</span>
+        <span class="project-tech-tag">.NET</span>
+        <span class="project-tech-tag">WPF</span>
+        <span class="project-tech-tag">MVVM</span>
+        <span class="project-tech-tag">Azure</span>
+      </div>
+      <div class="project-desc">Developed a Windows desktop application using C# and WPF following the MVVM design pattern. Implemented threading, inter-process communication, and Azure cloud integration.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-title">Capstone Systems Project</div>
+      <div class="project-tech-list">
+        <span class="project-tech-tag">Agile</span>
+        <span class="project-tech-tag">Git</span>
+        <span class="project-tech-tag">Full SDLC</span>
+        <span class="project-tech-tag">Team Project</span>
+      </div>
+      <div class="project-desc">Led a team through the complete software development lifecycle — from requirements and design to testing and delivery. Presented the final product at a public trade-show style demonstration.</div>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-title">Education</div>
+  <div class="edu-card">
+    <div class="edu-degree">Ontario College Advanced Diploma — Software Engineering Technology</div>
+    <div class="edu-school">Conestoga College · Waterloo, ON</div>
+    <div class="edu-date">2023 – [Graduation Year]</div>
+    <div class="edu-courses">
+      <strong>Key Courses:</strong> Operating System Fundamentals · C/C++ Programming · 
+      Object-Oriented Programming · Data Structures · Computer Architecture · 
+      Computer Security · Advanced Computer Security · Relational Databases · 
+      Network Application Development · System Programming (Linux) · 
+      Web Design & Development · Windows Programming · Mobile App Development · 
+      Software Quality · Microprocessors & Embedded Systems · Internet of Things · 
+      Cyberlaw, Ethics & Privacy · Business Intelligence · Capstone Systems Project
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div id="contact">
+<div class="inner">
+  <div class="section-title">Contact</div>
+  <div class="contact-grid">
+    <div class="contact-text">
+      <p>I'm currently open to entry-level IT and software engineering opportunities. Whether you have a question, a job opportunity, or just want to connect — feel free to reach out!</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:[your.email@email.com]" class="contact-link">
+        <span class="contact-icon">📧</span> [your.email@email.com]
+      </a>
+      <a href="https://linkedin.com/in/[yourprofile]" class="contact-link" target="_blank">
+        <span class="contact-icon">🔗</span> linkedin.com/in/[yourprofile]
+      </a>
+      <a href="https://github.com/MR1MHD" class="contact-link" target="_blank">
+        <span class="contact-icon">💻</span> github.com/MR1MHD
+      </a>
+    </div>
+  </div>
+</div>
+</div>
+
+<footer>
+  <p>© 2025 [Your Name] · Built with HTML & CSS · Hosted on GitHub Pages</p>
+</footer>
+
+</body>
+</html>
