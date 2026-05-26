@@ -6,7 +6,6 @@
 <title>Mohamad MHD — Portfolio</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-
   :root {
     --blue: #2c5f8a;
     --light-blue: #e8f0f7;
@@ -15,12 +14,7 @@
     --gray: #666;
     --border: #d0dce8;
   }
-
-  body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    color: var(--text);
-    background: #fff;
-  }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--text); background: #fff; }
 
   /* NAV */
   nav {
@@ -34,9 +28,9 @@
   .nav-name { font-weight: 700; color: var(--blue); font-size: 16px; }
   .nav-links { display: flex; gap: 28px; list-style: none; }
   .nav-links a { text-decoration: none; color: var(--gray); font-size: 13px; font-weight: 500; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--blue); }
+  .nav-links a:hover, .nav-links a.active { color: var(--blue); font-weight: 700; }
 
-  /* SECTIONS GENERAL */
+  /* SECTIONS */
   section { padding: 80px 40px; max-width: 960px; margin: 0 auto; }
   .section-title {
     font-size: 11px; font-weight: 700; text-transform: uppercase;
@@ -52,7 +46,7 @@
   }
   .hero-content { max-width: 620px; }
   .hero-greeting { font-size: 14px; color: var(--blue); font-weight: 600; margin-bottom: 12px; letter-spacing: 1px; }
-  .hero-name { font-size: 48px; font-weight: 700; color: var(--dark); line-height: 1.1; margin-bottom: 10px; }
+  .hero-name { font-size: 48px; font-weight: 700; color: var(--dark); line-height: 1.1; margin-bottom: 10px; min-height: 58px; }
   .hero-title { font-size: 20px; color: var(--gray); margin-bottom: 20px; }
   .hero-desc { font-size: 15px; color: var(--gray); line-height: 1.7; margin-bottom: 32px; max-width: 500px; }
   .btn {
@@ -60,14 +54,11 @@
     background: var(--blue); color: #fff;
     text-decoration: none; border-radius: 4px;
     font-size: 13px; font-weight: 600;
-    margin-right: 12px; transition: background 0.2s;
+    margin-right: 12px; transition: background 0.2s, transform 0.2s;
   }
-  .btn:hover { background: #1e4a6e; }
-  .btn-outline {
-    background: transparent; color: var(--blue);
-    border: 2px solid var(--blue);
-  }
-  .btn-outline:hover { background: var(--light-blue); }
+  .btn:hover { background: #1e4a6e; transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--blue); border: 2px solid var(--blue); }
+  .btn-outline:hover { background: var(--light-blue); transform: translateY(-2px); }
 
   /* ABOUT */
   #about { background: var(--light-blue); max-width: 100%; padding: 80px 40px; }
@@ -83,29 +74,25 @@
   .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .skill-card {
     border: 1px solid var(--border); border-radius: 6px;
-    padding: 18px; transition: box-shadow 0.2s;
+    padding: 18px; transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
   }
-  .skill-card:hover { box-shadow: 0 4px 16px rgba(44,95,138,0.1); }
+  .skill-card:hover { box-shadow: 0 4px 16px rgba(44,95,138,0.15); border-color: var(--blue); transform: translateY(-3px); }
   .skill-card-title { font-size: 12px; font-weight: 700; color: var(--blue); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
   .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tag {
-    background: var(--light-blue); color: var(--blue);
-    font-size: 11px; padding: 3px 8px; border-radius: 3px; font-weight: 500;
-  }
+  .tag { background: var(--light-blue); color: var(--blue); font-size: 11px; padding: 3px 8px; border-radius: 3px; font-weight: 500; }
 
   /* PROJECTS */
   .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
   .project-card {
     border: 1px solid var(--border); border-radius: 8px;
     padding: 24px; transition: box-shadow 0.2s, transform 0.2s;
+    cursor: default;
   }
-  .project-card:hover { box-shadow: 0 6px 24px rgba(44,95,138,0.12); transform: translateY(-2px); }
-  .project-card-title { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+  .project-card:hover { box-shadow: 0 6px 24px rgba(44,95,138,0.15); transform: translateY(-4px); }
+  .project-card:hover .project-card-title { color: var(--blue); }
+  .project-card-title { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 6px; transition: color 0.2s; }
   .project-tech-list { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
-  .project-tech-tag {
-    background: var(--blue); color: #fff;
-    font-size: 10px; padding: 2px 7px; border-radius: 2px; font-weight: 600;
-  }
+  .project-tech-tag { background: var(--blue); color: #fff; font-size: 10px; padding: 2px 7px; border-radius: 2px; font-weight: 600; }
   .project-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
 
   /* EDUCATION */
@@ -132,17 +119,35 @@
     display: flex; align-items: center; gap: 12px;
     text-decoration: none; color: #ccc; font-size: 13px;
     padding: 12px 16px; border: 1px solid #2c4a6a;
-    border-radius: 6px; transition: border-color 0.2s, color 0.2s;
+    border-radius: 6px; transition: border-color 0.2s, color 0.2s, transform 0.2s;
   }
-  .contact-link:hover { border-color: #7ab3d4; color: #7ab3d4; }
+  .contact-link:hover { border-color: #7ab3d4; color: #7ab3d4; transform: translateX(4px); }
   .contact-icon { font-size: 18px; }
 
   /* FOOTER */
-  footer {
-    background: var(--dark); text-align: center;
-    padding: 20px; font-size: 12px; color: #555;
-    border-top: 1px solid #1e3a52;
+  footer { background: var(--dark); text-align: center; padding: 20px; font-size: 12px; color: #555; border-top: 1px solid #1e3a52; }
+
+  /* FADE IN ANIMATION */
+  .fade-in { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* TYPING CURSOR */
+  .typing-cursor::after { content: '|'; animation: blink 0.7s infinite; color: var(--blue); }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* BACK TO TOP */
+  #back-to-top {
+    position: fixed; bottom: 30px; right: 30px;
+    background: var(--blue); color: #fff;
+    border: none; border-radius: 50%;
+    width: 42px; height: 42px; font-size: 18px;
+    cursor: pointer; display: none;
+    align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(44,95,138,0.3);
+    transition: background 0.2s, transform 0.2s;
+    z-index: 200;
   }
+  #back-to-top:hover { background: #1e4a6e; transform: translateY(-3px); }
 
   /* RESPONSIVE */
   @media (max-width: 700px) {
@@ -170,13 +175,13 @@
 <!-- HERO -->
 <div style="max-width:100%;">
 <section id="hero">
-  <div class="hero-content">
-    <div class="hero-greeting"> Hi there, I'm</div>
-    <div class="hero-name">Mohamad MHD</div>
+  <div class="hero-content fade-in">
+    <div class="hero-greeting">👋 Hi there, I'm</div>
+    <div class="hero-name" id="typed-name"></div>
     <div class="hero-title">Software Engineering Technology Graduate</div>
     <div class="hero-desc">
-      A passionate IT & software engineering graduate from Conestoga College, 
-      with hands-on experience in systems programming, networking, databases, 
+      A passionate IT & software engineering graduate from Conestoga College,
+      with hands-on experience in systems programming, networking, databases,
       and computer security. I love building things that work and solving problems that matter.
     </div>
     <a href="#projects" class="btn">View My Projects</a>
@@ -189,48 +194,23 @@
 <div id="about">
 <div class="inner">
   <div class="section-title">About Me</div>
-  <div class="about-grid">
+  <div class="about-grid fade-in">
     <div class="about-text">
-      <p>
-        I'm a recent Software Engineering Technology graduate from Conestoga College in Waterloo, Ontario. 
-        Throughout my studies I built a strong foundation across the full stack — from low-level 
-        assembly and embedded systems, all the way up to web applications and cloud deployment.
-      </p>
-      <p>
-        I'm especially interested in IT infrastructure, cybersecurity, and networked systems. 
-        I enjoy understanding how things work under the hood and applying that knowledge to 
-        build reliable, secure software.
-      </p>
+      <p>I'm a recent Software Engineering Technology graduate from Conestoga College in Waterloo, Ontario.
+        Throughout my studies I built a strong foundation across the full stack — from low-level
+        assembly and embedded systems, all the way up to web applications and cloud deployment.</p>
+      <p>I'm especially interested in IT infrastructure, cybersecurity, and networked systems.
+        I enjoy understanding how things work under the hood and applying that knowledge to
+        build reliable, secure software.</p>
     </div>
     <div class="about-info">
-      <div class="info-row">
-        <span class="info-label">Name</span>
-        <span class="info-value">Mohamad MHD</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Location</span>
-        <span class="info-value">Waterloo, ON, Canada</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Education</span>
-        <span class="info-value">Conestoga College — Software Engineering Technology</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Email</span>
-        <span class="info-value">mhdaldabea@gmail.com</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">LinkedIn</span>
-        <span class="info-value">https://www.linkedin.com/in/mohamad-mhd-aldabea-4a8a773aa</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">GitHub</span>
-        <span class="info-value">github.com/MR1MHD</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Status</span>
-        <span class="info-value" style="color:#2c5f8a; font-weight:600;">Open to opportunities ✅</span>
-      </div>
+      <div class="info-row"><span class="info-label">Name</span><span class="info-value">Mohamad MHD</span></div>
+      <div class="info-row"><span class="info-label">Location</span><span class="info-value">Waterloo, ON, Canada</span></div>
+      <div class="info-row"><span class="info-label">Education</span><span class="info-value">Conestoga College — Software Engineering Technology</span></div>
+      <div class="info-row"><span class="info-label">Email</span><span class="info-value">mhdaldabea@gmail.com</span></div>
+      <div class="info-row"><span class="info-label">LinkedIn</span><span class="info-value"><a href="https://www.linkedin.com/in/mohamad-mhd-aldabea-4a8a773aa" target="_blank" style="color:var(--blue);">View Profile</a></span></div>
+      <div class="info-row"><span class="info-label">GitHub</span><span class="info-value"><a href="https://github.com/MR1MHD" target="_blank" style="color:var(--blue);">github.com/MR1MHD</a></span></div>
+      <div class="info-row"><span class="info-label">Status</span><span class="info-value" style="color:#2c5f8a; font-weight:600;">Open to opportunities ✅</span></div>
     </div>
   </div>
 </div>
@@ -240,54 +220,12 @@
 <section id="skills">
   <div class="section-title">Technical Skills</div>
   <div class="skills-grid">
-    <div class="skill-card">
-      <div class="skill-card-title">Languages</div>
-      <div class="skill-tags">
-        <span class="tag">C</span><span class="tag">C++</span><span class="tag">C#</span>
-        <span class="tag">Java</span><span class="tag">Python</span><span class="tag">SQL</span>
-        <span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">Assembly</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-card-title">Operating Systems</div>
-      <div class="skill-tags">
-        <span class="tag">Linux</span><span class="tag">Windows</span>
-        <span class="tag">Shell Scripting</span><span class="tag">PowerShell</span>
-        <span class="tag">Virtual Machines</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-card-title">Networking & Security</div>
-      <div class="skill-tags">
-        <span class="tag">TCP/IP</span><span class="tag">LAN</span>
-        <span class="tag">SSL/TLS</span><span class="tag">Penetration Testing</span>
-        <span class="tag">Firewalls</span><span class="tag">Sockets</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-card-title">Web & Cloud</div>
-      <div class="skill-tags">
-        <span class="tag">HTML</span><span class="tag">CSS</span>
-        <span class="tag">REST</span><span class="tag">ASP.NET</span>
-        <span class="tag">Azure</span><span class="tag">jQuery</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-card-title">Databases</div>
-      <div class="skill-tags">
-        <span class="tag">SQL</span><span class="tag">Relational DB</span>
-        <span class="tag">ERD</span><span class="tag">Normalization</span>
-        <span class="tag">NoSQL</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-card-title">Tools & Concepts</div>
-      <div class="skill-tags">
-        <span class="tag">Git</span><span class="tag">GitHub</span>
-        <span class="tag">Agile</span><span class="tag">OOP</span>
-        <span class="tag">Data Structures</span><span class="tag">IoT</span>
-      </div>
-    </div>
+    <div class="skill-card fade-in"><div class="skill-card-title">Languages</div><div class="skill-tags"><span class="tag">C</span><span class="tag">C++</span><span class="tag">C#</span><span class="tag">Java</span><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">Assembly</span></div></div>
+    <div class="skill-card fade-in"><div class="skill-card-title">Operating Systems</div><div class="skill-tags"><span class="tag">Linux</span><span class="tag">Windows</span><span class="tag">Shell Scripting</span><span class="tag">PowerShell</span><span class="tag">Virtual Machines</span></div></div>
+    <div class="skill-card fade-in"><div class="skill-card-title">Networking & Security</div><div class="skill-tags"><span class="tag">TCP/IP</span><span class="tag">LAN</span><span class="tag">SSL/TLS</span><span class="tag">Penetration Testing</span><span class="tag">Firewalls</span><span class="tag">Sockets</span></div></div>
+    <div class="skill-card fade-in"><div class="skill-card-title">Web & Cloud</div><div class="skill-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">REST</span><span class="tag">ASP.NET</span><span class="tag">Azure</span><span class="tag">jQuery</span></div></div>
+    <div class="skill-card fade-in"><div class="skill-card-title">Databases</div><div class="skill-tags"><span class="tag">SQL</span><span class="tag">Relational DB</span><span class="tag">ERD</span><span class="tag">Normalization</span><span class="tag">NoSQL</span></div></div>
+    <div class="skill-card fade-in"><div class="skill-card-title">Tools & Concepts</div><div class="skill-tags"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Agile</span><span class="tag">OOP</span><span class="tag">Data Structures</span><span class="tag">IoT</span></div></div>
   </div>
 </section>
 
@@ -296,76 +234,12 @@
 <section id="projects" style="padding-top:0; padding-bottom:0;">
   <div class="section-title">Projects</div>
   <div class="projects-grid">
-
-    <div class="project-card">
-      <div class="project-card-title">Linux System Programming Suite</div>
-      <div class="project-tech-list">
-        <span class="project-tech-tag">C</span>
-        <span class="project-tech-tag">Linux</span>
-        <span class="project-tech-tag">POSIX Threads</span>
-        <span class="project-tech-tag">Sockets</span>
-        <span class="project-tech-tag">Shell Scripting</span>
-      </div>
-      <div class="project-desc">Built multi-process and multi-threaded applications in Linux using IPC mechanisms including message queues, shared memory, semaphores, and TCP/IP sockets. Implemented shell scripts for task automation.</div>
-    </div>
-
-    <div class="project-card">
-      <div class="project-card-title">Relational Database Application</div>
-      <div class="project-tech-list">
-        <span class="project-tech-tag">SQL</span>
-        <span class="project-tech-tag">C</span>
-        <span class="project-tech-tag">ERD</span>
-        <span class="project-tech-tag">Normalization</span>
-      </div>
-      <div class="project-desc">Designed a normalized relational database (3NF) from requirements, built the schema using DDL, and developed a C program for full CRUD operations via programmatic database access.</div>
-    </div>
-
-    <div class="project-card">
-      <div class="project-card-title">Full-Stack Network Application</div>
-      <div class="project-tech-list">
-        <span class="project-tech-tag">Java</span>
-        <span class="project-tech-tag">REST</span>
-        <span class="project-tech-tag">PHP</span>
-        <span class="project-tech-tag">SQL</span>
-        <span class="project-tech-tag">Azure</span>
-      </div>
-      <div class="project-desc">Designed and deployed an internet-accessible full-stack application using n-tier architecture, REST web services, and secure client-server communication. Hosted on Microsoft Azure.</div>
-    </div>
-
-    <div class="project-card">
-      <div class="project-card-title">Penetration Testing Lab</div>
-      <div class="project-tech-list">
-        <span class="project-tech-tag">Kali Linux</span>
-        <span class="project-tech-tag">Ethical Hacking</span>
-        <span class="project-tech-tag">Countermeasures</span>
-        <span class="project-tech-tag">Digital Forensics</span>
-      </div>
-      <div class="project-desc">Recreated attack scenarios in an isolated lab, identified application vulnerabilities, and implemented effective countermeasures. Developed a secure application and subjected it to full penetration testing.</div>
-    </div>
-
-    <div class="project-card">
-      <div class="project-card-title">Windows Desktop Application</div>
-      <div class="project-tech-list">
-        <span class="project-tech-tag">C#</span>
-        <span class="project-tech-tag">.NET</span>
-        <span class="project-tech-tag">WPF</span>
-        <span class="project-tech-tag">MVVM</span>
-        <span class="project-tech-tag">Azure</span>
-      </div>
-      <div class="project-desc">Developed a Windows desktop application using C# and WPF following the MVVM design pattern. Implemented threading, inter-process communication, and Azure cloud integration.</div>
-    </div>
-
-    <div class="project-card">
-      <div class="project-card-title">Capstone Systems Project</div>
-      <div class="project-tech-list">
-        <span class="project-tech-tag">Agile</span>
-        <span class="project-tech-tag">Git</span>
-        <span class="project-tech-tag">Full SDLC</span>
-        <span class="project-tech-tag">Team Project</span>
-      </div>
-      <div class="project-desc">Led a team through the complete software development lifecycle — from requirements and design to testing and delivery. Presented the final product at a public trade-show style demonstration.</div>
-    </div>
-
+    <div class="project-card fade-in"><div class="project-card-title">Linux System Programming Suite</div><div class="project-tech-list"><span class="project-tech-tag">C</span><span class="project-tech-tag">Linux</span><span class="project-tech-tag">POSIX Threads</span><span class="project-tech-tag">Sockets</span><span class="project-tech-tag">Shell Scripting</span></div><div class="project-desc">Built multi-process and multi-threaded applications in Linux using IPC mechanisms including message queues, shared memory, semaphores, and TCP/IP sockets. Implemented shell scripts for task automation.</div></div>
+    <div class="project-card fade-in"><div class="project-card-title">Relational Database Application</div><div class="project-tech-list"><span class="project-tech-tag">SQL</span><span class="project-tech-tag">C</span><span class="project-tech-tag">ERD</span><span class="project-tech-tag">Normalization</span></div><div class="project-desc">Designed a normalized relational database (3NF) from requirements, built the schema using DDL, and developed a C program for full CRUD operations via programmatic database access.</div></div>
+    <div class="project-card fade-in"><div class="project-card-title">Full-Stack Network Application</div><div class="project-tech-list"><span class="project-tech-tag">Java</span><span class="project-tech-tag">REST</span><span class="project-tech-tag">PHP</span><span class="project-tech-tag">SQL</span><span class="project-tech-tag">Azure</span></div><div class="project-desc">Designed and deployed an internet-accessible full-stack application using n-tier architecture, REST web services, and secure client-server communication. Hosted on Microsoft Azure.</div></div>
+    <div class="project-card fade-in"><div class="project-card-title">Penetration Testing Lab</div><div class="project-tech-list"><span class="project-tech-tag">Kali Linux</span><span class="project-tech-tag">Ethical Hacking</span><span class="project-tech-tag">Countermeasures</span><span class="project-tech-tag">Digital Forensics</span></div><div class="project-desc">Recreated attack scenarios in an isolated lab, identified application vulnerabilities, and implemented effective countermeasures. Developed a secure application and subjected it to full penetration testing.</div></div>
+    <div class="project-card fade-in"><div class="project-card-title">Windows Desktop Application</div><div class="project-tech-list"><span class="project-tech-tag">C#</span><span class="project-tech-tag">.NET</span><span class="project-tech-tag">WPF</span><span class="project-tech-tag">MVVM</span><span class="project-tech-tag">Azure</span></div><div class="project-desc">Developed a Windows desktop application using C# and WPF following the MVVM design pattern. Implemented threading, inter-process communication, and Azure cloud integration.</div></div>
+    <div class="project-card fade-in"><div class="project-card-title">Capstone Systems Project</div><div class="project-tech-list"><span class="project-tech-tag">Agile</span><span class="project-tech-tag">Git</span><span class="project-tech-tag">Full SDLC</span><span class="project-tech-tag">Team Project</span></div><div class="project-desc">Led a team through the complete software development lifecycle — from requirements and design to testing and delivery. Presented the final product at a public trade-show style demonstration.</div></div>
   </div>
 </section>
 </div>
@@ -373,17 +247,17 @@
 <!-- EDUCATION -->
 <section id="education">
   <div class="section-title">Education</div>
-  <div class="edu-card">
+  <div class="edu-card fade-in">
     <div class="edu-degree">Ontario College Advanced Diploma — Software Engineering Technology</div>
     <div class="edu-school">Conestoga College · Waterloo, ON</div>
     <div class="edu-date">2023 – 2026</div>
     <div class="edu-courses">
-      <strong>Key Courses:</strong> Operating System Fundamentals · C/C++ Programming · 
-      Object-Oriented Programming · Data Structures · Computer Architecture · 
-      Computer Security · Advanced Computer Security · Relational Databases · 
-      Network Application Development · System Programming (Linux) · 
-      Web Design & Development · Windows Programming · Mobile App Development · 
-      Software Quality · Microprocessors & Embedded Systems · Internet of Things · 
+      <strong>Key Courses:</strong> Operating System Fundamentals · C/C++ Programming ·
+      Object-Oriented Programming · Data Structures · Computer Architecture ·
+      Computer Security · Advanced Computer Security · Relational Databases ·
+      Network Application Development · System Programming (Linux) ·
+      Web Design & Development · Windows Programming · Mobile App Development ·
+      Software Quality · Microprocessors & Embedded Systems · Internet of Things ·
       Cyberlaw, Ethics & Privacy · Business Intelligence · Capstone Systems Project
     </div>
   </div>
@@ -393,28 +267,67 @@
 <div id="contact">
 <div class="inner">
   <div class="section-title">Contact</div>
-  <div class="contact-grid">
+  <div class="contact-grid fade-in">
     <div class="contact-text">
       <p>I'm currently open to entry-level IT and software engineering opportunities. Whether you have a question, a job opportunity, or just want to connect — feel free to reach out!</p>
     </div>
     <div class="contact-links">
-      <a href="mailto:mhdaldabea@gmail.com" class="contact-link">
-        <span class="contact-icon">📧</span> mhdaldabea@gmail.com
-      </a>
-      <a href="https://www.linkedin.com/in/mohamad-mhd-aldabea-4a8a773aa" class="contact-link" target="_blank">
-        <span class="contact-icon">🔗</span> Linkedin
-      </a>
-      <a href="https://github.com/MR1MHD" class="contact-link" target="_blank">
-        <span class="contact-icon">💻</span>Github
-      </a>
+      <a href="mailto:mhdaldabea@gmail.com" class="contact-link"><span class="contact-icon">📧</span> mhdaldabea@gmail.com</a>
+      <a href="https://www.linkedin.com/in/mohamad-mhd-aldabea-4a8a773aa" class="contact-link" target="_blank"><span class="contact-icon">🔗</span> LinkedIn</a>
+      <a href="https://github.com/MR1MHD" class="contact-link" target="_blank"><span class="contact-icon">💻</span> GitHub</a>
     </div>
   </div>
 </div>
 </div>
 
 <footer>
-  <p>© 2026 Mohamad MHD Aldabea Built with HTML & CSS · Hosted on GitHub Pages</p>
+  <p>© 2026 Mohamad MHD Aldabea · Built with HTML & CSS · Hosted on GitHub Pages</p>
 </footer>
+
+<!-- BACK TO TOP -->
+<button id="back-to-top" title="Back to top">↑</button>
+
+<script>
+  // TYPING ANIMATION
+  const nameEl = document.getElementById('typed-name');
+  const fullName = 'Mohamad MHD Aldabea';
+  let i = 0;
+  nameEl.classList.add('typing-cursor');
+  const typer = setInterval(() => {
+    nameEl.textContent += fullName[i];
+    i++;
+    if (i >= fullName.length) { clearInterval(typer); nameEl.classList.remove('typing-cursor'); }
+  }, 80);
+
+  // SCROLL FADE-IN
+  const faders = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, idx) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), idx * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  faders.forEach(el => observer.observe(el));
+
+  // BACK TO TOP
+  const topBtn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', () => { topBtn.style.display = window.scrollY > 400 ? 'flex' : 'none'; });
+  topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // ACTIVE NAV
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => { if (window.scrollY >= sec.offsetTop - 100) current = sec.id; });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    });
+  });
+</script>
 
 </body>
 </html>
