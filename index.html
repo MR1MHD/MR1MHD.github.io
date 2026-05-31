@@ -1,333 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mohamad MHD — Portfolio</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-  :root {
-    --blue: #2c5f8a;
-    --light-blue: #e8f0f7;
-    --dark: #1a1a2e;
-    --text: #333;
-    --gray: #666;
-    --border: #d0dce8;
-  }
-  body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--text); background: #fff; }
-
-  /* NAV */
-  nav {
-    position: fixed; top: 0; width: 100%; z-index: 100;
-    background: rgba(255,255,255,0.95);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 40px;
-    display: flex; justify-content: space-between; align-items: center;
-    backdrop-filter: blur(6px);
-  }
-  .nav-name { font-weight: 700; color: var(--blue); font-size: 16px; }
-  .nav-links { display: flex; gap: 28px; list-style: none; }
-  .nav-links a { text-decoration: none; color: var(--gray); font-size: 13px; font-weight: 500; transition: color 0.2s; }
-  .nav-links a:hover, .nav-links a.active { color: var(--blue); font-weight: 700; }
-
-  /* SECTIONS */
-  section { padding: 80px 40px; max-width: 960px; margin: 0 auto; }
-  .section-title {
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 2px; color: var(--blue);
-    margin-bottom: 30px; display: flex; align-items: center; gap: 12px;
-  }
-  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-  /* HERO */
-  #hero {
-    min-height: 100vh; display: flex; align-items: center;
-    padding-top: 100px; max-width: 960px; margin: 0 auto;
-  }
-  .hero-content { max-width: 620px; }
-  .hero-greeting { font-size: 14px; color: var(--blue); font-weight: 600; margin-bottom: 12px; letter-spacing: 1px; }
-  .hero-name { font-size: 48px; font-weight: 700; color: var(--dark); line-height: 1.1; margin-bottom: 10px; min-height: 58px; }
-  .hero-title { font-size: 20px; color: var(--gray); margin-bottom: 20px; }
-  .hero-desc { font-size: 15px; color: var(--gray); line-height: 1.7; margin-bottom: 32px; max-width: 500px; }
-  .btn {
-    display: inline-block; padding: 12px 28px;
-    background: var(--blue); color: #fff;
-    text-decoration: none; border-radius: 4px;
-    font-size: 13px; font-weight: 600;
-    margin-right: 12px; transition: background 0.2s, transform 0.2s;
-  }
-  .btn:hover { background: #1e4a6e; transform: translateY(-2px); }
-  .btn-outline { background: transparent; color: var(--blue); border: 2px solid var(--blue); }
-  .btn-outline:hover { background: var(--light-blue); transform: translateY(-2px); }
-
-  /* ABOUT */
-  #about { background: var(--light-blue); max-width: 100%; padding: 80px 40px; }
-  #about .inner { max-width: 960px; margin: 0 auto; }
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-  .about-text p { font-size: 14px; line-height: 1.8; color: var(--gray); margin-bottom: 14px; }
-  .about-info { display: flex; flex-direction: column; gap: 10px; }
-  .info-row { display: flex; gap: 10px; font-size: 13px; }
-  .info-label { font-weight: 600; color: var(--blue); min-width: 100px; }
-  .info-value { color: var(--gray); }
-
-  /* SKILLS */
-  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .skill-card {
-    border: 1px solid var(--border); border-radius: 6px;
-    padding: 18px; transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
-  }
-  .skill-card:hover { box-shadow: 0 4px 16px rgba(44,95,138,0.15); border-color: var(--blue); transform: translateY(-3px); }
-  .skill-card-title { font-size: 12px; font-weight: 700; color: var(--blue); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tag { background: var(--light-blue); color: var(--blue); font-size: 11px; padding: 3px 8px; border-radius: 3px; font-weight: 500; }
-
-  /* PROJECTS */
-  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-  .project-card {
-    border: 1px solid var(--border); border-radius: 8px;
-    padding: 24px; transition: box-shadow 0.2s, transform 0.2s;
-    cursor: default;
-  }
-  .project-card:hover { box-shadow: 0 6px 24px rgba(44,95,138,0.15); transform: translateY(-4px); }
-  .project-card:hover .project-card-title { color: var(--blue); }
-  .project-card-title { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 6px; transition: color 0.2s; }
-  .project-tech-list { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
-  .project-tech-tag { background: var(--blue); color: #fff; font-size: 10px; padding: 2px 7px; border-radius: 2px; font-weight: 600; }
-  .project-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
-
-  /* EDUCATION */
-  .edu-card {
-    border-left: 3px solid var(--blue);
-    padding: 18px 24px; margin-bottom: 16px;
-    background: var(--light-blue); border-radius: 0 6px 6px 0;
-  }
-  .edu-degree { font-size: 15px; font-weight: 700; color: var(--dark); }
-  .edu-school { font-size: 13px; color: var(--blue); margin-top: 3px; font-weight: 600; }
-  .edu-date { font-size: 12px; color: var(--gray); margin-top: 3px; }
-  .edu-courses { font-size: 12px; color: var(--gray); margin-top: 10px; line-height: 1.7; }
-  .edu-courses strong { color: var(--text); }
-
-  /* CONTACT */
-  #contact { background: var(--dark); max-width: 100%; padding: 80px 40px; }
-  #contact .inner { max-width: 960px; margin: 0 auto; }
-  #contact .section-title { color: #7ab3d4; }
-  #contact .section-title::after { background: #2c4a6a; }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-  .contact-text p { font-size: 14px; color: #aaa; line-height: 1.8; }
-  .contact-links { display: flex; flex-direction: column; gap: 14px; }
-  .contact-link {
-    display: flex; align-items: center; gap: 12px;
-    text-decoration: none; color: #ccc; font-size: 13px;
-    padding: 12px 16px; border: 1px solid #2c4a6a;
-    border-radius: 6px; transition: border-color 0.2s, color 0.2s, transform 0.2s;
-  }
-  .contact-link:hover { border-color: #7ab3d4; color: #7ab3d4; transform: translateX(4px); }
-  .contact-icon { font-size: 18px; }
-
-  /* FOOTER */
-  footer { background: var(--dark); text-align: center; padding: 20px; font-size: 12px; color: #555; border-top: 1px solid #1e3a52; }
-
-  /* FADE IN ANIMATION */
-  .fade-in { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-  /* TYPING CURSOR */
-  .typing-cursor::after { content: '|'; animation: blink 0.7s infinite; color: var(--blue); }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-  /* BACK TO TOP */
-  #back-to-top {
-    position: fixed; bottom: 30px; right: 30px;
-    background: var(--blue); color: #fff;
-    border: none; border-radius: 50%;
-    width: 42px; height: 42px; font-size: 18px;
-    cursor: pointer; display: none;
-    align-items: center; justify-content: center;
-    box-shadow: 0 4px 12px rgba(44,95,138,0.3);
-    transition: background 0.2s, transform 0.2s;
-    z-index: 200;
-  }
-  #back-to-top:hover { background: #1e4a6e; transform: translateY(-3px); }
-
-  /* RESPONSIVE */
-  @media (max-width: 700px) {
-    .about-grid, .skills-grid, .projects-grid, .contact-grid { grid-template-columns: 1fr; }
-    .hero-name { font-size: 32px; }
-    nav { padding: 12px 20px; }
-    .nav-links { gap: 16px; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050505" />
+  <meta name="description" content="Professional software engineering and cybersecurity portfolio." />
+  <title>Full Name — Software Engineering Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
+  <script src="https://assets.emergent.sh/scripts/emergent-main.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --bg:#050505; --surface:#0a0a0a; --surface-2:#101113; --text:#ededed; --muted:#a1a1aa; --dim:#666a73; --cyan:#00f0ff; --green:#00ff66; --border:rgba(255,255,255,.11); --border-strong:rgba(0,240,255,.44); --max:1180px; }
+    html { scroll-behavior:smooth; scroll-padding-top:90px; }
+    body { background:var(--bg); color:var(--text); font-family:"IBM Plex Sans",sans-serif; line-height:1.6; overflow-x:hidden; }
+    body::before { content:""; position:fixed; inset:0; z-index:-3; background:radial-gradient(circle at 18% 12%, rgba(0,240,255,.13), transparent 28%),radial-gradient(circle at 78% 18%, rgba(0,255,102,.09), transparent 28%),linear-gradient(180deg,#050505 0%,#07090a 48%,#050505 100%); }
+    body::after { content:""; position:fixed; inset:0; z-index:-2; opacity:.28; background-image:linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px); background-size:56px 56px; mask-image:linear-gradient(to bottom,black 0%,transparent 78%); pointer-events:none; }
+    a { color:inherit; text-decoration:none; } img { max-width:100%; display:block; } .container { max-width:var(--max); margin:0 auto; padding:0 28px; } .mono { font-family:"JetBrains Mono",monospace; } .accent { color:var(--cyan); } .green { color:var(--green); }
+    .site-header { position:fixed; top:0; left:0; right:0; z-index:1000; border-bottom:1px solid var(--border); background:rgba(5,5,5,.72); backdrop-filter:blur(18px); }
+    .nav { min-height:74px; display:flex; align-items:center; justify-content:space-between; gap:28px; }
+    .brand { display:inline-flex; align-items:center; gap:12px; font:800 14px/1 "JetBrains Mono",monospace; letter-spacing:.16em; text-transform:uppercase; white-space:nowrap; }
+    .brand-mark { width:34px; height:34px; display:grid; place-items:center; border:1px solid var(--border-strong); color:var(--cyan); background:linear-gradient(135deg,rgba(0,240,255,.14),rgba(0,255,102,.06)); box-shadow:0 0 26px rgba(0,240,255,.16); }
+    .nav-links { display:flex; align-items:center; gap:8px; list-style:none; }
+    .nav-link { position:relative; display:inline-flex; padding:10px 12px; color:var(--muted); font:600 12px/1 "JetBrains Mono",monospace; text-transform:uppercase; letter-spacing:.12em; transition:color .22s ease,background-color .22s ease; }
+    .nav-link::before { content:""; position:absolute; left:12px; right:12px; bottom:4px; height:1px; transform:scaleX(0); transform-origin:left; background:var(--cyan); transition:transform .22s ease; }
+    .nav-link:hover,.nav-link.active { color:var(--text); background:rgba(255,255,255,.035); } .nav-link:hover::before,.nav-link.active::before { transform:scaleX(1); }
+    .hero { position:relative; min-height:100vh; display:flex; align-items:center; padding:138px 0 96px; isolation:isolate; }
+    .hero::before { content:""; position:absolute; inset:0; z-index:-2; background:linear-gradient(90deg,rgba(5,5,5,.93),rgba(5,5,5,.72) 52%,rgba(5,5,5,.88)),url("https://static.prod-images.emergentagent.com/jobs/a8ce0bba-3ef8-4398-a813-1802db28d2de/images/66a8ef5b14e6bddc89210a2b79401c947aef72dd93e208d88890209f5beee7d5.png") center/cover; }
+    .hero::after { content:""; position:absolute; inset:auto 0 0; height:180px; z-index:-1; background:linear-gradient(to bottom,transparent,var(--bg)); }
+    .hero-grid { display:grid; grid-template-columns:minmax(0,1.16fr) minmax(300px,.84fr); gap:58px; align-items:center; }
+    .eyebrow { display:inline-flex; align-items:center; gap:10px; color:var(--cyan); font:700 12px/1 "JetBrains Mono",monospace; letter-spacing:.24em; text-transform:uppercase; margin-bottom:24px; }
+    .eyebrow::before { content:""; width:42px; height:1px; background:var(--cyan); box-shadow:0 0 18px rgba(0,240,255,.8); }
+    .hero-name { max-width:760px; color:#fff; font-family:"JetBrains Mono",monospace; font-size:clamp(3rem,7vw,6.65rem); font-weight:800; line-height:.9; letter-spacing:-.08em; text-transform:uppercase; margin-bottom:28px; }
+    .hero-role { min-height:42px; color:var(--green); font:700 clamp(1rem,2vw,1.35rem)/1.5 "JetBrains Mono",monospace; letter-spacing:.03em; margin-bottom:24px; }
+    .cursor::after { content:"_"; animation:blink .75s step-end infinite; color:var(--cyan); } @keyframes blink { 50%{opacity:0;} }
+    .hero-copy { max-width:650px; color:var(--muted); font-size:1.04rem; margin-bottom:34px; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:14px; margin-bottom:36px; }
+    .btn { position:relative; display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:48px; padding:0 22px; border:1px solid var(--border-strong); background:rgba(0,240,255,.08); color:var(--text); font:700 12px/1 "JetBrains Mono",monospace; text-transform:uppercase; letter-spacing:.12em; transition:transform .22s ease,border-color .22s ease,background-color .22s ease,box-shadow .22s ease; }
+    .btn:hover { transform:translateY(-3px); background:rgba(0,240,255,.14); box-shadow:0 0 32px rgba(0,240,255,.14); } .btn.secondary { border-color:rgba(255,255,255,.16); background:rgba(255,255,255,.035); color:var(--muted); } .btn.secondary:hover { color:var(--text); border-color:rgba(0,255,102,.45); box-shadow:0 0 32px rgba(0,255,102,.08); } .btn.small { min-height:38px; padding:0 14px; font-size:10px; letter-spacing:.1em; }
+    .hero-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border:1px solid var(--border); background:rgba(5,5,5,.58); }
+    .stat { padding:18px; border-right:1px solid var(--border); } .stat:last-child{border-right:none;} .stat strong{display:block;color:#fff;font:800 1.3rem/1 "JetBrains Mono",monospace;margin-bottom:8px;} .stat span{color:var(--muted);font-size:.84rem;}
+    .terminal-card { border:1px solid var(--border); background:linear-gradient(180deg,rgba(10,10,10,.88),rgba(10,10,10,.62)); box-shadow:0 30px 90px rgba(0,0,0,.38); transform:translateY(10px); }
+    .terminal-top { display:flex; align-items:center; gap:8px; padding:14px 16px; border-bottom:1px solid var(--border); } .dot{width:9px;height:9px;border-radius:999px;background:var(--dim);} .dot.cyan{background:var(--cyan);box-shadow:0 0 16px rgba(0,240,255,.7);} .dot.green{background:var(--green);box-shadow:0 0 16px rgba(0,255,102,.5);} .terminal-title{margin-left:auto;color:var(--dim);font:600 11px/1 "JetBrains Mono",monospace;} .terminal-body{padding:22px;font:500 13px/1.9 "JetBrains Mono",monospace;color:var(--muted);} .terminal-line{display:flex;gap:10px;border-bottom:1px dashed rgba(255,255,255,.06);padding:8px 0;} .terminal-line:last-child{border-bottom:none;} .prompt{color:var(--cyan);} .ok{color:var(--green);}
+    section { padding:112px 0; } .section-heading{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;margin-bottom:42px;} .section-kicker{color:var(--cyan);font:800 12px/1 "JetBrains Mono",monospace;letter-spacing:.24em;text-transform:uppercase;} .section-line{height:1px;background:linear-gradient(90deg,var(--border-strong),transparent);} .section-title{grid-column:1/-1;max-width:780px;color:#fff;font:800 clamp(2.1rem,4vw,4rem)/1 "JetBrains Mono",monospace;letter-spacing:-.06em;text-transform:uppercase;}
+    .panel{border:1px solid var(--border);background:rgba(10,10,10,.76);transition:transform .24s ease,border-color .24s ease,background-color .24s ease;} .panel:hover{transform:translateY(-4px);border-color:var(--border-strong);background:rgba(13,15,16,.9);} .about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;} .bio-panel{padding:32px;} .bio-panel p{color:var(--muted);margin-bottom:18px;font-size:1rem;} .bio-panel p:last-child{margin-bottom:0;}
+    .identity-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--border);} .identity-item{min-height:96px;padding:20px;background:var(--surface);} .identity-label{display:block;color:var(--dim);font:700 10px/1 "JetBrains Mono",monospace;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px;} .identity-value{color:var(--text);font-weight:700;word-break:break-word;} .identity-value a{color:var(--cyan);border-bottom:1px solid rgba(0,240,255,.3);transition:color .2s ease,border-color .2s ease;} .identity-value a:hover{color:var(--green);border-color:rgba(0,255,102,.45);}
+    .skills-section{background:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.66)),url("https://static.prod-images.emergentagent.com/jobs/a8ce0bba-3ef8-4398-a813-1802db28d2de/images/fde63fc8e6cb6c6bc4319c9a3b05e5d2e6df4a640fbb1ed312ed8d83718a79d2.png") center/cover fixed;border-top:1px solid var(--border);border-bottom:1px solid var(--border);} .skills-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;} .skill-card{padding:24px;min-height:230px;} .skill-icon{width:42px;height:42px;display:grid;place-items:center;color:var(--cyan);border:1px solid rgba(0,240,255,.28);margin-bottom:24px;} .skill-title{color:#fff;font:800 1rem/1.2 "JetBrains Mono",monospace;text-transform:uppercase;margin-bottom:18px;} .tags{display:flex;flex-wrap:wrap;gap:8px;} .tag{display:inline-flex;align-items:center;min-height:28px;padding:0 10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035);color:var(--muted);font:700 11px/1 "JetBrains Mono",monospace;}
+    .projects-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;} .project-card{display:flex;flex-direction:column;padding:28px;min-height:330px;position:relative;overflow:hidden;} .project-card::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(var(--cyan),var(--green));opacity:.55;} .project-number{color:var(--dim);font:800 12px/1 "JetBrains Mono",monospace;margin-bottom:20px;} .project-title{color:#fff;font:800 1.28rem/1.25 "JetBrains Mono",monospace;letter-spacing:-.03em;margin-bottom:14px;} .project-desc{color:var(--muted);font-size:.96rem;margin-bottom:20px;} .project-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:22px;}
+    .education-wrap{display:grid;grid-template-columns:.42fr 1fr;gap:32px;align-items:start;} .education-note{color:var(--muted);font-size:1rem;} .timeline{position:relative;padding-left:28px;border-left:1px solid var(--border-strong);} .timeline-card{position:relative;padding:28px;} .timeline-card::before{content:"";position:absolute;left:-35px;top:32px;width:13px;height:13px;background:var(--cyan);box-shadow:0 0 24px rgba(0,240,255,.75);} .edu-degree{color:#fff;font:800 1.2rem/1.35 "JetBrains Mono",monospace;margin-bottom:8px;} .edu-meta{color:var(--cyan);font-weight:700;margin-bottom:8px;} .edu-date{color:var(--dim);font:700 12px/1 "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px;} .courses{color:var(--muted);font-size:.95rem;} .courses strong{color:var(--text);}
+    .contact-section{padding-bottom:70px;} .contact-panel{display:grid;grid-template-columns:1fr .82fr;gap:32px;align-items:center;padding:clamp(28px,5vw,56px);border:1px solid var(--border);background:radial-gradient(circle at 80% 20%,rgba(0,240,255,.14),transparent 30%),linear-gradient(135deg,rgba(10,10,10,.98),rgba(10,10,10,.7));} .contact-title{color:#fff;font:800 clamp(2.4rem,5vw,5rem)/.95 "JetBrains Mono",monospace;letter-spacing:-.07em;text-transform:uppercase;margin-bottom:22px;} .contact-copy{color:var(--muted);max-width:610px;} .contact-links{display:grid;gap:12px;} .contact-link{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:62px;padding:0 18px;border:1px solid var(--border);color:var(--muted);background:rgba(255,255,255,.025);transition:transform .22s ease,border-color .22s ease,color .22s ease,background-color .22s ease;} .contact-link:hover{transform:translateX(6px);border-color:var(--border-strong);color:#fff;background:rgba(0,240,255,.06);} .contact-link span:first-child{font-weight:800;}
+    .footer{border-top:1px solid var(--border);padding:28px 0;color:var(--dim);font-size:.92rem;} .footer-inner{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;} .back-to-top{position:fixed;right:22px;bottom:22px;z-index:900;width:48px;height:48px;display:grid;place-items:center;border:1px solid var(--border-strong);background:rgba(5,5,5,.82);color:var(--cyan);cursor:pointer;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .22s ease,transform .22s ease,background-color .22s ease;} .back-to-top.visible{opacity:1;pointer-events:auto;transform:translateY(0);} .back-to-top:hover{background:rgba(0,240,255,.12);transform:translateY(-4px);} .reveal{opacity:0;transform:translateY(24px);transition:opacity .72s ease,transform .72s ease;} .reveal.visible{opacity:1;transform:translateY(0);}
+    @media (max-width:980px){.hero-grid,.about-grid,.education-wrap,.contact-panel{grid-template-columns:1fr;}.terminal-card{max-width:620px;}.skills-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+    @media (max-width:760px){.container{padding:0 20px;}.nav{min-height:auto;padding:16px 0;align-items:flex-start;}.nav-links{max-width:100%;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}.brand{font-size:12px;}.hero{padding-top:136px;}.hero-name{font-size:clamp(2.55rem,15vw,4.2rem);}.hero-stats,.identity-grid,.skills-grid,.projects-grid{grid-template-columns:1fr;}.stat{border-right:none;border-bottom:1px solid var(--border);}.stat:last-child{border-bottom:none;}section{padding:86px 0;}.project-card{min-height:auto;}.footer-inner{flex-direction:column;}}
+  </style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-name">Mohamad MHD</div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<div style="max-width:100%;">
-<section id="hero">
-  <div class="hero-content fade-in">
-    <div class="hero-greeting"> Hi there, I'm</div>
-    <div class="hero-name" id="typed-name"></div>
-    <div class="hero-title">Software Engineering Technology </div>
-    <div class="hero-desc">
-      A passionate IT & software engineering ,
-      with hands-on experience in systems programming, networking, databases,
-      and computer security. I love building things that work and solving problems that matter.
-    </div>
-    <a href="#projects" class="btn">View My Projects</a>
-    <a href="#contact" class="btn btn-outline">Get In Touch</a>
-  </div>
-</section>
-</div>
-
-<!-- ABOUT -->
-<div id="about">
-<div class="inner">
-  <div class="section-title">About Me</div>
-  <div class="about-grid fade-in">
-    <div class="about-text">
-      <p>I'm a recent Software Engineering Technology graduate from Conestoga College in Waterloo, Ontario.
-        Throughout my studies I built a strong foundation across the full stack — from low-level
-        assembly and embedded systems, all the way up to web applications and cloud deployment.</p>
-      <p>I'm especially interested in IT infrastructure, cybersecurity, and networked systems.
-        I enjoy understanding how things work under the hood and applying that knowledge to
-        build reliable, secure software.</p>
-    </div>
-    <div class="about-info">
-      <div class="info-row"><span class="info-label">Name</span><span class="info-value">Mohamad MHD</span></div>
-      <div class="info-row"><span class="info-label">Location</span><span class="info-value">Kitchener, ON, Canada</span></div>
-      <div class="info-row"><span class="info-label">Education</span><span class="info-value">Conestoga College — Software Engineering Technology</span></div>
-      <div class="info-row"><span class="info-label">Email</span><span class="info-value">mhdaldabea@gmail.com</span></div>
-      <div class="info-row"><span class="info-label">LinkedIn</span><span class="info-value"><a href="https://www.linkedin.com/in/mohamad-mhd-aldabea-4a8a773aa" target="_blank" style="color:var(--blue);">View Profile</a></span></div>
-      <div class="info-row"><span class="info-label">GitHub</span><span class="info-value"><a href="https://github.com/MR1MHD" target="_blank" style="color:var(--blue);">github.com/MR1MHD</a></span></div>
-      <div class="info-row"><span class="info-label">Status</span><span class="info-value" style="color:#2c5f8a; font-weight:600;">Open to opportunities ✅</span></div>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="section-title">Technical Skills</div>
-  <div class="skills-grid">
-    <div class="skill-card fade-in"><div class="skill-card-title">Languages</div><div class="skill-tags"><span class="tag">C</span><span class="tag">C++</span><span class="tag">C#</span><span class="tag">Java</span><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">Assembly</span></div></div>
-    <div class="skill-card fade-in"><div class="skill-card-title">Operating Systems</div><div class="skill-tags"><span class="tag">Linux</span><span class="tag">Windows</span><span class="tag">Shell Scripting</span><span class="tag">PowerShell</span><span class="tag">Virtual Machines</span></div></div>
-    <div class="skill-card fade-in"><div class="skill-card-title">Networking & Security</div><div class="skill-tags"><span class="tag">TCP/IP</span><span class="tag">LAN</span><span class="tag">SSL/TLS</span><span class="tag">Penetration Testing</span><span class="tag">Firewalls</span><span class="tag">Sockets</span></div></div>
-    <div class="skill-card fade-in"><div class="skill-card-title">Web & Cloud</div><div class="skill-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">REST</span><span class="tag">ASP.NET</span><span class="tag">Azure</span><span class="tag">jQuery</span></div></div>
-    <div class="skill-card fade-in"><div class="skill-card-title">Databases</div><div class="skill-tags"><span class="tag">SQL</span><span class="tag">Relational DB</span><span class="tag">ERD</span><span class="tag">Normalization</span><span class="tag">NoSQL</span></div></div>
-    <div class="skill-card fade-in"><div class="skill-card-title">Tools & Concepts</div><div class="skill-tags"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Agile</span><span class="tag">OOP</span><span class="tag">Data Structures</span><span class="tag">IoT</span></div></div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<div style="background: var(--light-blue); max-width:100%; padding: 80px 0;">
-<section id="projects" style="padding-top:0; padding-bottom:0;">
-  <div class="section-title">Projects</div>
-  <div class="projects-grid">
-    <div class="project-card fade-in"><div class="project-card-title">Linux System Programming Suite</div><div class="project-tech-list"><span class="project-tech-tag">C</span><span class="project-tech-tag">Linux</span><span class="project-tech-tag">POSIX Threads</span><span class="project-tech-tag">Sockets</span><span class="project-tech-tag">Shell Scripting</span></div><div class="project-desc">Built multi-process and multi-threaded applications in Linux using IPC mechanisms including message queues, shared memory, semaphores, and TCP/IP sockets. Implemented shell scripts for task automation.</div></div>
-    <div class="project-card fade-in"><div class="project-card-title">Relational Database Application</div><div class="project-tech-list"><span class="project-tech-tag">SQL</span><span class="project-tech-tag">C</span><span class="project-tech-tag">ERD</span><span class="project-tech-tag">Normalization</span></div><div class="project-desc">Designed a normalized relational database (3NF) from requirements, built the schema using DDL, and developed a C program for full CRUD operations via programmatic database access.</div></div>
-    <div class="project-card fade-in"><div class="project-card-title">Full-Stack Network Application</div><div class="project-tech-list"><span class="project-tech-tag">Java</span><span class="project-tech-tag">REST</span><span class="project-tech-tag">PHP</span><span class="project-tech-tag">SQL</span><span class="project-tech-tag">Azure</span></div><div class="project-desc">Designed and deployed an internet-accessible full-stack application using n-tier architecture, REST web services, and secure client-server communication. Hosted on Microsoft Azure.</div></div>
-    <div class="project-card fade-in"><div class="project-card-title">Penetration Testing Lab</div><div class="project-tech-list"><span class="project-tech-tag">Kali Linux</span><span class="project-tech-tag">Ethical Hacking</span><span class="project-tech-tag">Countermeasures</span><span class="project-tech-tag">Digital Forensics</span></div><div class="project-desc">Recreated attack scenarios in an isolated lab, identified application vulnerabilities, and implemented effective countermeasures. Developed a secure application and subjected it to full penetration testing.</div></div>
-    <div class="project-card fade-in"><div class="project-card-title">Windows Desktop Application</div><div class="project-tech-list"><span class="project-tech-tag">C#</span><span class="project-tech-tag">.NET</span><span class="project-tech-tag">WPF</span><span class="project-tech-tag">MVVM</span><span class="project-tech-tag">Azure</span></div><div class="project-desc">Developed a Windows desktop application using C# and WPF following the MVVM design pattern. Implemented threading, inter-process communication, and Azure cloud integration.</div></div>
-    <div class="project-card fade-in"><div class="project-card-title">Capstone Systems Project</div><div class="project-tech-list"><span class="project-tech-tag">Agile</span><span class="project-tech-tag">Git</span><span class="project-tech-tag">Full SDLC</span><span class="project-tech-tag">Team Project</span></div><div class="project-desc">Led a team through the complete software development lifecycle — from requirements and design to testing and delivery. Presented the final product at a public trade-show style demonstration.</div></div>
-  </div>
-</section>
-</div>
-
-<!-- EDUCATION -->
-<section id="education">
-  <div class="section-title">Education</div>
-  <div class="edu-card fade-in">
-    <div class="edu-degree">Ontario College Advanced Diploma — Software Engineering Technology</div>
-    <div class="edu-school">Conestoga College · Waterloo, ON</div>
-    <div class="edu-date">2023 – 2026</div>
-    <div class="edu-courses">
-      <strong>Key Courses:</strong> Operating System Fundamentals · C/C++ Programming ·
-      Object-Oriented Programming · Data Structures · Computer Architecture ·
-      Computer Security · Advanced Computer Security · Relational Databases ·
-      Network Application Development · System Programming (Linux) ·
-      Web Design & Development · Windows Programming · Mobile App Development ·
-      Software Quality · Microprocessors & Embedded Systems · Internet of Things ·
-      Cyberlaw, Ethics & Privacy · Business Intelligence · Capstone Systems Project
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<div id="contact">
-<div class="inner">
-  <div class="section-title">Contact</div>
-  <div class="contact-grid fade-in">
-    <div class="contact-text">
-      <p>I'm currently open to entry-level IT and software engineering opportunities. Whether you have a question, a job opportunity, or just want to connect — feel free to reach out!</p>
-    </div>
-    <div class="contact-links">
-      <a href="mailto:mhdaldabea@gmail.com" class="contact-link"><span class="contact-icon">📧</span> mhdaldabea@gmail.com</a>
-      <a href="https://www.linkedin.com/in/mohamad-mhd-aldabea-4a8a773aa" class="contact-link" target="_blank"><span class="contact-icon">🔗</span> LinkedIn</a>
-      <a href="https://github.com/MR1MHD" class="contact-link" target="_blank"><span class="contact-icon">💻</span> GitHub</a>
-    </div>
-  </div>
-</div>
-</div>
-
-<footer>
-  <p>© 2026 Mohamad MHD Aldabea · Built with HTML & CSS · Hosted on GitHub Pages</p>
-</footer>
-
-<!-- BACK TO TOP -->
-<button id="back-to-top" title="Back to top">↑</button>
-
-<script>
-  // TYPING ANIMATION
-  const nameEl = document.getElementById('typed-name');
-  const fullName = 'Mohamad MHD Aldabea';
-  let i = 0;
-  nameEl.classList.add('typing-cursor');
-  const typer = setInterval(() => {
-    nameEl.textContent += fullName[i];
-    i++;
-    if (i >= fullName.length) { clearInterval(typer); nameEl.classList.remove('typing-cursor'); }
-  }, 80);
-
-  // SCROLL FADE-IN
-  const faders = document.querySelectorAll('.fade-in');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, idx) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), idx * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  faders.forEach(el => observer.observe(el));
-
-  // BACK TO TOP
-  const topBtn = document.getElementById('back-to-top');
-  window.addEventListener('scroll', () => { topBtn.style.display = window.scrollY > 400 ? 'flex' : 'none'; });
-  topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-  // ACTIVE NAV
-  const sections = document.querySelectorAll('[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(sec => { if (window.scrollY >= sec.offsetTop - 100) current = sec.id; });
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
-    });
-  });
-</script>
-
+  <header class="site-header" data-testid="site-header"><div class="container nav"><a class="brand" href="#hero" data-testid="nav-brand-link" aria-label="Go to hero section"><span class="brand-mark" data-testid="brand-initials">FN</span><span data-testid="brand-name">Full Name</span></a><ul class="nav-links" data-testid="nav-links"><li><a class="nav-link" href="#about" data-testid="nav-about-link">About</a></li><li><a class="nav-link" href="#skills" data-testid="nav-skills-link">Skills</a></li><li><a class="nav-link" href="#projects" data-testid="nav-projects-link">Projects</a></li><li><a class="nav-link" href="#education" data-testid="nav-education-link">Education</a></li><li><a class="nav-link" href="#contact" data-testid="nav-contact-link">Contact</a></li></ul></div></header>
+  <main>
+    <section class="hero" id="hero" data-testid="hero-section"><div class="container hero-grid"><div class="hero-content reveal"><div class="eyebrow" data-testid="hero-eyebrow">Open to Opportunities</div><h1 class="hero-name" data-testid="hero-name-heading">Full Name</h1><div class="hero-role cursor" id="typed-role" data-testid="hero-typed-role"></div><p class="hero-copy" data-testid="hero-description">Software Engineering Technology graduate focused on building secure, reliable systems across IT infrastructure, networking, databases, and application development. Replace this text with your strongest career summary.</p><div class="hero-actions"><a class="btn" href="#projects" data-testid="hero-view-projects-button">View Projects</a><a class="btn secondary" href="#contact" data-testid="hero-contact-button">Get In Touch</a></div><div class="hero-stats" data-testid="hero-stats"><div class="stat" data-testid="hero-stat-systems"><strong>Systems</strong><span>Linux, Windows, scripting, automation</span></div><div class="stat" data-testid="hero-stat-security"><strong>Security</strong><span>Cybersecurity labs and defensive thinking</span></div><div class="stat" data-testid="hero-stat-fullstack"><strong>Full Stack</strong><span>Web, REST, SQL, cloud fundamentals</span></div></div></div><aside class="terminal-card reveal" data-testid="hero-terminal-card"><div class="terminal-top"><span class="dot cyan"></span><span class="dot green"></span><span class="dot"></span><span class="terminal-title" data-testid="terminal-title">candidate.profile</span></div><div class="terminal-body"><div class="terminal-line" data-testid="terminal-line-name"><span class="prompt">name</span><span>Full Name</span></div><div class="terminal-line" data-testid="terminal-line-location"><span class="prompt">location</span><span>Your City</span></div><div class="terminal-line" data-testid="terminal-line-focus"><span class="prompt">focus</span><span>IT · Security · Software Engineering</span></div><div class="terminal-line" data-testid="terminal-line-status"><span class="prompt">status</span><span class="ok">Open to entry-level opportunities</span></div></div></aside></div></section>
+    <section id="about" data-testid="about-section"><div class="container"><div class="section-heading reveal"><div class="section-kicker" data-testid="about-kicker">01 / About</div><div class="section-line"></div><h2 class="section-title" data-testid="about-title">Built for secure, practical problem solving.</h2></div><div class="about-grid"><div class="panel bio-panel reveal" data-testid="about-bio-panel"><p data-testid="about-paragraph-one">I’m a Software Engineering Technology graduate from Conestoga College with hands-on experience across the full technology stack: low-level systems, web applications, databases, cloud concepts, and secure networked communication.</p><p data-testid="about-paragraph-two">My strongest interests are IT infrastructure, cybersecurity, and systems that are reliable under real-world conditions. I enjoy learning how technology works below the surface, then turning that knowledge into clean, maintainable solutions.</p><p data-testid="about-paragraph-three">Use this section to add your real story, certifications, work eligibility, languages, or the specific role titles you are targeting.</p></div><div class="panel identity-grid reveal" data-testid="about-identity-grid"><div class="identity-item"><span class="identity-label">Name</span><div class="identity-value" data-testid="personal-full-name">Full Name</div></div><div class="identity-item"><span class="identity-label">Location</span><div class="identity-value" data-testid="personal-location">Your City</div></div><div class="identity-item"><span class="identity-label">Education</span><div class="identity-value" data-testid="personal-education">Conestoga College — Software Engineering Technology</div></div><div class="identity-item"><span class="identity-label">Email</span><div class="identity-value"><a href="mailto:your.email@example.com" data-testid="personal-email-link">Your Email</a></div></div><div class="identity-item"><span class="identity-label">LinkedIn</span><div class="identity-value"><a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" data-testid="personal-linkedin-link">Your LinkedIn</a></div></div><div class="identity-item"><span class="identity-label">GitHub</span><div class="identity-value"><a href="https://github.com/your-username" target="_blank" rel="noopener noreferrer" data-testid="personal-github-link">Your GitHub</a></div></div></div></div></div></section>
+    <section class="skills-section" id="skills" data-testid="skills-section"><div class="container"><div class="section-heading reveal"><div class="section-kicker" data-testid="skills-kicker">02 / Technical Stack</div><div class="section-line"></div><h2 class="section-title" data-testid="skills-title">A control-room view of the tools I use.</h2></div><div class="skills-grid"><article class="panel skill-card reveal" data-testid="skill-card-languages"><div class="skill-icon" aria-hidden="true">&lt;/&gt;</div><h3 class="skill-title">Languages</h3><div class="tags"><span class="tag">C</span><span class="tag">C++</span><span class="tag">C#</span><span class="tag">Java</span><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">Assembly</span></div></article><article class="panel skill-card reveal" data-testid="skill-card-infrastructure"><div class="skill-icon" aria-hidden="true">▣</div><h3 class="skill-title">IT Infrastructure</h3><div class="tags"><span class="tag">Linux</span><span class="tag">Windows</span><span class="tag">Shell</span><span class="tag">PowerShell</span><span class="tag">VMs</span><span class="tag">Automation</span></div></article><article class="panel skill-card reveal" data-testid="skill-card-security"><div class="skill-icon" aria-hidden="true">◇</div><h3 class="skill-title">Cybersecurity</h3><div class="tags"><span class="tag">Pen Testing</span><span class="tag">SSL/TLS</span><span class="tag">Firewalls</span><span class="tag">Forensics</span><span class="tag">Countermeasures</span></div></article><article class="panel skill-card reveal" data-testid="skill-card-networking"><div class="skill-icon" aria-hidden="true">⌁</div><h3 class="skill-title">Networking</h3><div class="tags"><span class="tag">TCP/IP</span><span class="tag">LAN</span><span class="tag">Sockets</span><span class="tag">Client-Server</span><span class="tag">REST</span></div></article><article class="panel skill-card reveal" data-testid="skill-card-databases"><div class="skill-icon" aria-hidden="true">▤</div><h3 class="skill-title">Databases</h3><div class="tags"><span class="tag">Relational DB</span><span class="tag">ERD</span><span class="tag">Normalization</span><span class="tag">CRUD</span><span class="tag">NoSQL</span></div></article><article class="panel skill-card reveal" data-testid="skill-card-tools"><div class="skill-icon" aria-hidden="true">⚙</div><h3 class="skill-title">Tools & Concepts</h3><div class="tags"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Agile</span><span class="tag">OOP</span><span class="tag">Data Structures</span><span class="tag">IoT</span><span class="tag">Azure</span></div></article></div></div></section>
+    <section id="projects" data-testid="projects-section"><div class="container"><div class="section-heading reveal"><div class="section-kicker" data-testid="projects-kicker">03 / Selected Projects</div><div class="section-line"></div><h2 class="section-title" data-testid="projects-title">Proof that theory became working systems.</h2></div><div class="projects-grid"><article class="panel project-card reveal" data-testid="project-card-linux"><div class="project-number">PROJECT 001</div><h3 class="project-title">Linux System Programming Suite</h3><p class="project-desc">Built multi-process and multi-threaded applications in Linux using IPC mechanisms including message queues, shared memory, semaphores, TCP/IP sockets, and shell automation.</p><div class="tags"><span class="tag">C</span><span class="tag">Linux</span><span class="tag">POSIX</span><span class="tag">Sockets</span></div><div class="project-actions"><a class="btn small" href="#" data-testid="project-linux-github-button">GitHub</a><a class="btn small secondary" href="#" data-testid="project-linux-demo-button">Live Demo</a></div></article><article class="panel project-card reveal" data-testid="project-card-database"><div class="project-number">PROJECT 002</div><h3 class="project-title">Relational Database Application</h3><p class="project-desc">Designed a normalized 3NF relational database from requirements, built the SQL schema, and developed a C program for complete CRUD operations.</p><div class="tags"><span class="tag">SQL</span><span class="tag">C</span><span class="tag">ERD</span><span class="tag">3NF</span></div><div class="project-actions"><a class="btn small" href="#" data-testid="project-database-github-button">GitHub</a><a class="btn small secondary" href="#" data-testid="project-database-demo-button">Live Demo</a></div></article><article class="panel project-card reveal" data-testid="project-card-network"><div class="project-number">PROJECT 003</div><h3 class="project-title">Full-Stack Network Application</h3><p class="project-desc">Designed and deployed an internet-accessible n-tier application with REST web services, secure client-server communication, SQL persistence, and Azure hosting.</p><div class="tags"><span class="tag">Java</span><span class="tag">REST</span><span class="tag">PHP</span><span class="tag">Azure</span></div><div class="project-actions"><a class="btn small" href="#" data-testid="project-network-github-button">GitHub</a><a class="btn small secondary" href="#" data-testid="project-network-demo-button">Live Demo</a></div></article><article class="panel project-card reveal" data-testid="project-card-security"><div class="project-number">PROJECT 004</div><h3 class="project-title">Penetration Testing Lab</h3><p class="project-desc">Recreated attack scenarios in an isolated lab, identified vulnerabilities, implemented countermeasures, and tested a secure application against threat patterns.</p><div class="tags"><span class="tag">Kali</span><span class="tag">Ethical Hacking</span><span class="tag">Forensics</span></div><div class="project-actions"><a class="btn small" href="#" data-testid="project-security-github-button">GitHub</a><a class="btn small secondary" href="#" data-testid="project-security-demo-button">Live Demo</a></div></article><article class="panel project-card reveal" data-testid="project-card-desktop"><div class="project-number">PROJECT 005</div><h3 class="project-title">Windows Desktop Application</h3><p class="project-desc">Developed a Windows desktop app using C# and WPF with MVVM architecture, threading, inter-process communication, and cloud integration concepts.</p><div class="tags"><span class="tag">C#</span><span class="tag">WPF</span><span class="tag">MVVM</span><span class="tag">Azure</span></div><div class="project-actions"><a class="btn small" href="#" data-testid="project-desktop-github-button">GitHub</a><a class="btn small secondary" href="#" data-testid="project-desktop-demo-button">Live Demo</a></div></article><article class="panel project-card reveal" data-testid="project-card-capstone"><div class="project-number">PROJECT 006</div><h3 class="project-title">Capstone Systems Project</h3><p class="project-desc">Led a team through the complete software development lifecycle: requirements, design, implementation, testing, delivery, and trade-show presentation.</p><div class="tags"><span class="tag">Agile</span><span class="tag">Git</span><span class="tag">SDLC</span><span class="tag">Team Lead</span></div><div class="project-actions"><a class="btn small" href="#" data-testid="project-capstone-github-button">GitHub</a><a class="btn small secondary" href="#" data-testid="project-capstone-demo-button">Live Demo</a></div></article></div></div></section>
+    <section id="education" data-testid="education-section"><div class="container"><div class="section-heading reveal"><div class="section-kicker" data-testid="education-kicker">04 / Education</div><div class="section-line"></div><h2 class="section-title" data-testid="education-title">Formal training across systems, software, and security.</h2></div><div class="education-wrap"><p class="education-note reveal" data-testid="education-note">This section is designed to be recruiter-friendly: clear program name, school, dates, and the strongest course keywords for applicant tracking systems.</p><div class="timeline reveal" data-testid="education-timeline"><article class="panel timeline-card" data-testid="education-card"><h3 class="edu-degree" data-testid="education-degree">Ontario College Advanced Diploma — Software Engineering Technology</h3><div class="edu-meta" data-testid="education-school">Conestoga College · Waterloo, ON</div><div class="edu-date" data-testid="education-date">2023 – 2026</div><p class="courses" data-testid="education-courses"><strong>Key Courses:</strong> Operating Systems · C/C++ Programming · OOP · Data Structures · Computer Architecture · Computer Security · Relational Databases · Network Application Development · Linux System Programming · Web Design & Development · Windows Programming · Mobile App Development · Software Quality · Embedded Systems · IoT · Cyberlaw, Ethics & Privacy · Business Intelligence · Capstone Systems Project</p></article></div></div></div></section>
+    <section class="contact-section" id="contact" data-testid="contact-section"><div class="container"><div class="contact-panel reveal" data-testid="contact-panel"><div><div class="section-kicker" data-testid="contact-kicker">05 / Contact</div><h2 class="contact-title" data-testid="contact-title">Let’s Talk.</h2><p class="contact-copy" data-testid="contact-copy">I’m open to entry-level IT, cybersecurity, networking, and software engineering opportunities. Replace the placeholder links with your real contact details when ready.</p></div><div class="contact-links" data-testid="contact-links"><a class="contact-link" href="mailto:your.email@example.com" data-testid="contact-email-link"><span>Email</span><span>↗</span></a><a class="contact-link" href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" data-testid="contact-linkedin-link"><span>LinkedIn</span><span>↗</span></a><a class="contact-link" href="https://github.com/your-username" target="_blank" rel="noopener noreferrer" data-testid="contact-github-link"><span>GitHub</span><span>↗</span></a></div></div></div></section>
+  </main>
+  <footer class="footer" data-testid="footer"><div class="container footer-inner"><span data-testid="footer-copyright">© 2026 Full Name · Software Engineering Portfolio</span><span class="mono" data-testid="footer-status">STATUS: OPEN_TO_OPPORTUNITIES</span></div></footer>
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top" data-testid="back-to-top-button">↑</button><div id="root" hidden></div>
+  <script>
+    const typedRole=document.getElementById('typed-role');const roles=['Software Engineering Technology Graduate','IT Infrastructure Problem Solver','Cybersecurity & Network Systems Builder'];let roleIndex=0,charIndex=0,deleting=false;function typeLoop(){const current=roles[roleIndex];typedRole.textContent=current.slice(0,charIndex);if(!deleting&&charIndex<current.length){charIndex+=1;setTimeout(typeLoop,55)}else if(!deleting&&charIndex===current.length){deleting=true;setTimeout(typeLoop,1300)}else if(deleting&&charIndex>0){charIndex-=1;setTimeout(typeLoop,28)}else{deleting=false;roleIndex=(roleIndex+1)%roles.length;setTimeout(typeLoop,250)}}typeLoop();
+    const revealObserver=new IntersectionObserver((entries)=>{entries.forEach((entry)=>{if(entry.isIntersecting){entry.target.classList.add('visible');revealObserver.unobserve(entry.target)}})},{threshold:.12});document.querySelectorAll('.reveal').forEach((element,index)=>{element.style.transitionDelay=element.style.transitionDelay||`${Math.min(index*45,260)}ms`;revealObserver.observe(element)});
+    const topButton=document.getElementById('back-to-top');const sections=document.querySelectorAll('main section[id]');const navLinks=document.querySelectorAll('.nav-link');function updateNavigation(){topButton.classList.toggle('visible',window.scrollY>460);let active='hero';sections.forEach((section)=>{if(window.scrollY>=section.offsetTop-140)active=section.id});navLinks.forEach((link)=>{link.classList.toggle('active',link.getAttribute('href')===`#${active}`)})}window.addEventListener('scroll',updateNavigation,{passive:true});topButton.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));updateNavigation();
+  </script>
 </body>
 </html>
+
+
